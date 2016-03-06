@@ -55,4 +55,65 @@ describe Api::V1::UsersController do
     end
   end
 
+  describe "PUT/PATCH #update" do
+
+    context "when is successfully updated" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        patch :update, { id: @user.id,
+                         user: { points: 50 } }, format: :json
+      end
+
+      it "renders the json representation for the updated user" do
+        user_response = JSON.parse(response.body, symbolize_names: true)
+        expect(user_response[:points]).to eql 50
+      end
+
+      it { expect(response.status).to eq(200)  }
+    end
+
+    context "when is not created" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        @email = @user.email
+        patch :update, { id: @user.id,
+                         user: { points: "notallowed@sorry.com" } }, format: :json
+      end
+
+      it "renders an errors json" do
+        user_response = JSON.parse(response.body, symbolize_names: true)
+        expect(user_response).to have_key(:errors)
+      end
+
+      it "renders the json errors on whye the user could not be created" do
+        user_response = JSON.parse(response.body, symbolize_names: true)
+        expect(user_response[:errors][:points]).to include "is not a number"
+      end
+
+      it { expect(response.status).to eq(422)  }
+    end
+
+    context "when you try to update email" do
+      before(:each) do
+        @user = FactoryGirl.create :user
+        @email = @user.email
+        patch :update, { id: @user.id,
+                         user: { email: "notallowed@sorry.com" } }, format: :json
+      end
+      it "does not change the email" do
+        expect(@user.email).not_to equal("notallowed@sorry.com")
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+  before(:each) do
+    @user = FactoryGirl.create :user
+    delete :destroy, { id: @user.id }, format: :json
+  end
+
+  it { expect(response.status).to eq(204)  }
+
+end
+
 end
