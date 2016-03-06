@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   skip_before_filter  :verify_authenticity_token, only: [:create]
 
   def show
-    respond_with User.find(params[:id])
+    render json: User.find(params[:id])
   end
 
   def create
