@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Api::V1::UsersController do
- before(:each) { request.headers['Accept'] = "application/vnd.nbcuhackathon.v1" }
+describe UsersController do
+ before(:each) { request.headers['Accept'] = "application/nbcuhackathon" }
 
   describe "GET #show" do
     before(:each) do
