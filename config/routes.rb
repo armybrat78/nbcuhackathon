@@ -1,6 +1,6 @@
 
 Rails.application.routes.draw do
-  devise_for :users
+  get '/leaderboard' => 'leaderboard#index'
   resources :users, :only => [:show, :create, :update, :destroy],
     defaults: { format: :json }
 end

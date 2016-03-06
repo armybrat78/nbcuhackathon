@@ -26,7 +26,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #Api gems
 gem 'active_model_serializers'
 
-gem "devise", '~> 3.4.0'
 
 
 
@@ -45,7 +44,7 @@ gem 'web-console', '~> 2.0', group: :development
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem "rspec-rails", "~> 2.14"
+  gem "rspec-rails", "~> 3.3.2"
   gem "factory_girl_rails"
   gem 'ffaker'
 

@@ -1,0 +1,10 @@
+<h1>Leaderboard</h1>
+<table>
+<%  @users.each do |u| %>
+    <tr>
+        <td><%= u.email %></td>
+        <td><%= u.points %></td>
+    </tr>
+<% end %>
+</table>
+
